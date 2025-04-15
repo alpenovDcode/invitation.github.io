@@ -1,0 +1,848 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html, body {
+    width: 100%;
+    height: 100%;
+    overflow-x: hidden;
+    overflow-y: auto;
+}
+
+body {
+    font-family: 'Roboto', sans-serif;
+    background-color: #ffffff;
+    color: #555555;
+    background-image: url('images/back2.jpg');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+}
+
+/* Стили для переключателя языка */
+.language-switcher {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    z-index: 1000;
+    display: flex;
+    gap: 10px;
+}
+
+.lang-btn {
+    background-color: rgba(255, 255, 255, 0.9);
+    border: 1px solid #cccccc;
+    color: #555555;
+    padding: 5px 10px;
+    font-family: 'Roboto', sans-serif;
+    font-size: 0.9rem;
+    font-weight: 300;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    border-radius: 3px;
+}
+
+.lang-btn.active {
+    background-color: #777777;
+    color: #fff;
+}
+
+.lang-btn:hover {
+    background-color: rgba(119, 119, 119, 0.2);
+}
+
+/* Скрываем элементы татарского языка по умолчанию */
+[data-tt] {
+    display: none;
+}
+
+.container {
+    width: 100%;
+    padding: 20px;
+    padding-top: 60px;
+    padding-bottom: 60px;
+    background-color: rgba(255, 255, 255, 0.1);
+}
+
+.invitation-content {
+    max-width: 650px;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    gap: 40px;
+}
+
+.invitation-section {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: all 0.5s ease;
+    padding: 10px;
+    border-radius: 10px;
+    position: relative;
+}
+
+.invitation-section:hover {
+    background-color: rgba(0, 0, 0, 0.03);
+}
+
+.invitation-section::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    border-radius: 10px;
+    box-shadow: 0 0 0 0 rgba(0, 0, 0, 0);
+    transition: all 0.5s ease;
+    pointer-events: none;
+}
+
+.invitation-section:hover::before {
+    box-shadow: 0 0 0 5px rgba(0, 0, 0, 0.05);
+}
+
+.card {
+    width: 85%;
+    max-width: 500px;
+    background-color: rgba(255, 255, 255, 0.85);
+    padding: 35px 25px;
+    border: 1px solid #dddddd;
+    border-radius: 8px;
+    text-align: center;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+    transition: all 0.5s ease;
+    margin: 0 auto;
+    background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="100" height="100" viewBox="0 0 100 100"><path d="M20,20 Q30,10 40,20 T60,20 T80,20" stroke="%23e8e8e8" fill="none" stroke-width="1"/></svg>');
+    background-size: 300px;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
+.card:hover {
+    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.35);
+    transform: translateY(-12px) scale(1.02);
+    background-color: rgba(255, 255, 255, 0.95);
+    border-color: #999999;
+    z-index: 10;
+}
+
+.card:hover h1,
+.card:hover h2 {
+    color: #333333;
+    transform: scale(1.05);
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.15);
+}
+
+.card:hover .names,
+.card:hover .date,
+.card:hover .invite-text,
+.card:hover .event-title,
+.card:hover .time,
+.card:hover .contact-person {
+    color: #333333;
+}
+
+.card:hover .heart {
+    transform: scale(1.3);
+    color: #555555;
+}
+
+.card:hover .color-box {
+    transform: scale(1.1);
+    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+}
+
+h1, h2 {
+    font-family: 'Delius', cursive;
+    color: #555555;
+    font-weight: 500;
+    letter-spacing: 0.5px;
+    margin-bottom: 20px;
+    text-shadow: 1px 1px 2px rgba(255, 255, 255, 0.8);
+    transition: all 0.3s ease;
+}
+
+h1 {
+    font-size: 2.5rem;
+    line-height: 1.3;
+    margin-bottom: 25px;
+}
+
+h2 {
+    font-size: 1.8rem;
+    margin-bottom: 20px;
+}
+
+p {
+    margin-bottom: 18px;
+    line-height: 1.5;
+    font-size: 1.1rem;
+    font-weight: 300;
+    color: #555555;
+    font-style: italic;
+}
+
+/* Стили для первой страницы */
+.names {
+    font-size: 2.8rem;
+    line-height: 1.4;
+    margin-bottom: 25px;
+    font-weight: 500;
+    color: #444444;
+    transition: all 0.3s ease;
+    font-family: 'Delius', cursive;
+}
+
+.invite-text {
+    font-family: 'Delius', cursive;
+    font-style: italic;
+    font-size: 1.5rem;
+    margin-bottom: 20px;
+    font-weight: 400;
+    color: #555555;
+    transition: all 0.3s ease;
+}
+
+.date-line {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 20px 0;
+}
+
+.date-line hr {
+    flex: 1;
+    border: none;
+    height: 1px;
+    background-color: #dddddd;
+    transition: all 0.3s ease;
+}
+
+.card:hover .date-line hr {
+    background-color: #999999;
+    height: 2px;
+}
+
+.heart {
+    margin: 0 12px;
+    color: #555555;
+    font-size: 1.1rem;
+    transition: all 0.3s ease;
+}
+
+.date {
+    font-family: 'Delius', cursive;
+    font-size: 1.7rem;
+    margin-top: 15px;
+    font-weight: 500;
+    color: #444444;
+    transition: all 0.3s ease;
+}
+
+/* Стили для второй страницы */
+.message-text {
+    font-size: 1.1rem;
+    line-height: 1.5;
+    margin-bottom: 25px;
+    padding: 0 10px;
+}
+
+/* Стили для страницы О Никахе */
+.nikah-info-text {
+    font-size: 1.1rem;
+    line-height: 1.5;
+    margin-bottom: 25px;
+    padding: 0 15px;
+    text-align: justify;
+}
+
+.nikah-symbol {
+    width: 80px;
+    height: 80px;
+    margin: 10px auto 5px;
+    background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><path d="M50,10 L57,40 H87 L63,60 L70,90 L50,75 L30,90 L37,60 L13,40 H43 Z" fill="none" stroke="%23999999" stroke-width="2"/></svg>');
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: contain;
+    opacity: 0.7;
+    transition: all 0.3s ease;
+}
+
+.card:hover .nikah-symbol {
+    transform: scale(1.1) rotate(10deg);
+    opacity: 0.9;
+}
+
+/* Стили для календаря */
+.calendar {
+    margin-top: 30px;
+    max-width: 350px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.month {
+    font-family: 'Delius', cursive;
+    font-size: 1.5rem;
+    margin-bottom: 12px;
+    font-style: italic;
+    font-weight: 500;
+    color: #555555;
+}
+
+.weekdays {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    margin-bottom: 10px;
+}
+
+.weekdays span {
+    font-size: 0.9rem;
+    color: #777777;
+    text-transform: lowercase;
+    font-weight: 300;
+}
+
+.days {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    gap: 5px;
+}
+
+.days span {
+    display: inline-block;
+    width: 28px;
+    height: 28px;
+    line-height: 28px;
+    text-align: center;
+    font-size: 1rem;
+    color: #555555;
+}
+
+.days .selected {
+    background-color: #777777;
+    color: white;
+    border-radius: 50%;
+    position: relative;
+    font-weight: 400;
+    transition: all 0.3s ease;
+}
+
+.days .selected::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 28px;
+    height: 28px;
+    background-color: #777777;
+    border-radius: 50%;
+    z-index: -1;
+    transition: all 0.3s ease;
+}
+
+.card:hover .days .selected {
+    background-color: #444444;
+    transform: scale(1.1);
+    box-shadow: 0 3px 6px rgba(0, 0, 0, 0.2);
+}
+
+.card:hover .days .selected::before {
+    background-color: #444444;
+}
+
+/* Стили для третьей страницы */
+.schedule {
+    text-align: left;
+    max-width: 450px;
+    margin: 0 auto;
+}
+
+.schedule-item {
+    display: flex;
+    margin-bottom: 30px;
+    align-items: flex-start;
+    position: relative;
+}
+
+.schedule-item::after {
+    content: '';
+    position: absolute;
+    bottom: -15px;
+    left: 0;
+    width: 100%;
+    height: 1px;
+    background-color: #dddddd;
+    transition: all 0.3s ease;
+}
+
+.card:hover .schedule-item::after {
+    background-color: #999999;
+    height: 2px;
+}
+
+.schedule-item:last-child::after {
+    display: none;
+}
+
+.time {
+    font-family: 'Delius', cursive;
+    font-size: 1.5rem;
+    min-width: 70px;
+    color: #444444;
+    font-weight: 500;
+    transition: all 0.3s ease;
+}
+
+.event {
+    flex: 1;
+}
+
+.event-title {
+    font-family: 'Delius', cursive;
+    font-size: 1.3rem;
+    margin-bottom: 5px;
+    color: #555555;
+    font-weight: 500;
+    transition: all 0.3s ease;
+}
+
+.event-location {
+    font-size: 1.1rem;
+    color: #777777;
+    font-weight: 300;
+    font-style: italic;
+}
+
+/* Стили для четвертой страницы */
+.dress-code-text {
+    margin-bottom: 25px;
+    font-size: 1.1rem;
+    line-height: 1.5;
+    padding: 0 15px;
+}
+
+.dress-code-requirements {
+    font-size: 1.1rem;
+    line-height: 1.4;
+    margin-bottom: 15px;
+    font-weight: 500;
+    font-style: normal;
+    color: #444444;
+}
+
+.color-palette {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    margin: 0 auto;
+    max-width: 280px;
+}
+
+.color-row {
+    display: flex;
+    justify-content: space-between;
+    gap: 15px;
+}
+
+.color-box {
+    width: 60px;
+    height: 60px;
+    border: 1px solid #dddddd;
+    transition: all 0.3s ease;
+}
+
+/* Новые цвета для дресс-кода в серых тонах */
+.color-box:nth-child(1) { background-color: #f5f5f5; }
+.color-box:nth-child(2) { background-color: #e8e8e8; }
+.color-box:nth-child(3) { background-color: #d5d5d5; }
+.color-box:nth-child(4) { background-color: #b0b0b0; }
+.color-box:nth-child(5) { background-color: #888888; }
+.color-box:nth-child(6) { background-color: #555555; }
+
+.color-box:hover {
+    transform: scale(1.05);
+    box-shadow: 0 4px 8px rgba(119, 119, 119, 0.15);
+}
+
+/* Стили для пятой страницы */
+.location-text, .address {
+    margin-bottom: 15px;
+    padding: 0 10px;
+}
+
+.address {
+    font-weight: 500;
+    font-size: 1.2rem;
+    color: #444444;
+    font-style: normal;
+}
+
+.location-image {
+    margin: 20px auto;
+    border: 1px solid #dddddd;
+    overflow: hidden;
+    max-width: 350px;
+    transition: all 0.3s ease;
+}
+
+.card:hover .location-image {
+    border-color: #999999;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+    transform: scale(1.02);
+}
+
+.location-image img {
+    width: 100%;
+    height: auto;
+    display: block;
+}
+
+.directions-button {
+    background-color: #777777;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    font-family: 'Roboto', sans-serif;
+    font-size: 1rem;
+    font-weight: 300;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    border-radius: 3px;
+    box-shadow: 0 2px 5px rgba(119, 119, 119, 0.1);
+}
+
+.directions-button:hover {
+    background-color: #444444;
+    transform: translateY(-5px);
+    box-shadow: 0 8px 15px rgba(0, 0, 0, 0.3);
+    letter-spacing: 1px;
+}
+
+.card:hover .directions-button {
+    background-color: #555555;
+    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+}
+
+/* Стили для шестой страницы (Контакты) */
+.contacts-text {
+    margin-bottom: 25px;
+    font-size: 1.1rem;
+    line-height: 1.5;
+    padding: 0 15px;
+}
+
+.contact-person {
+    font-family: 'Delius', cursive;
+    font-size: 1.4rem;
+    font-weight: 500;
+    color: #444444;
+    font-style: normal;
+    transition: all 0.3s ease;
+}
+
+/* Стили для седьмой страницы (Пожелания) */
+.wishes-text {
+    font-size: 1.1rem;
+    line-height: 1.5;
+    margin: 0 auto;
+    max-width: 380px;
+}
+
+/* Стили для карты */
+.map-container {
+    width: 100%;
+    height: 0;
+    overflow: hidden;
+    transition: height 0.5s ease;
+    margin-top: 15px;
+    border-radius: 8px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+}
+
+.map-container.active {
+    height: 300px;
+}
+
+.map-container iframe {
+    width: 100%;
+    height: 100%;
+    border: none;
+}
+
+/* Исламский паттерн */
+.islamic-pattern {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 70px;
+    background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="100" height="100" viewBox="0 0 100 100"><path d="M0,50 Q25,0 50,50 T100,50" stroke="%23e8e8e8" fill="none" stroke-width="2" stroke-opacity="0.7"/></svg>');
+    background-size: 100px;
+    background-position: center top;
+    background-repeat: repeat-x;
+    opacity: 0.7;
+}
+
+.islamic-quote {
+    font-family: 'Delius', cursive;
+    font-size: 1.1rem;
+    line-height: 1.6;
+    font-style: italic;
+    color: #666666;
+    margin: 25px auto 10px;
+    max-width: 90%;
+    padding: 15px 10px;
+    position: relative;
+    border-top: 1px solid #dddddd;
+    border-bottom: 1px solid #dddddd;
+}
+
+.islamic-quote::before {
+    content: '❝';
+    position: absolute;
+    top: -15px;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: rgba(255, 255, 255, 0.85);
+    padding: 0 10px;
+    font-size: 1.5rem;
+    color: #888888;
+}
+
+.quran-source {
+    font-size: 0.9rem;
+    color: #888888;
+    font-style: italic;
+    margin-bottom: 5px;
+}
+
+.card:hover .islamic-quote {
+    color: #444444;
+    border-color: #999999;
+}
+
+.card:hover .islamic-quote::before {
+    color: #555555;
+}
+
+.card:hover .quran-source {
+    color: #666666;
+}
+
+/* Медиа-запросы для адаптивности */
+@media (max-width: 768px) {
+    .container {
+        padding: 15px;
+        padding-top: 60px;
+    }
+    
+    .invitation-content {
+        gap: 30px;
+    }
+    
+    .card {
+        width: 90%;
+        padding: 25px 20px;
+    }
+    
+    h1 {
+        font-size: 2.2rem;
+    }
+    
+    h2 {
+        font-size: 1.6rem;
+    }
+    
+    .color-box {
+        width: 50px;
+        height: 50px;
+    }
+    
+    .color-palette {
+        max-width: 240px;
+    }
+    
+    .map-container.active {
+        height: 250px;
+    }
+    
+    .islamic-quote {
+        font-size: 1rem;
+        padding: 12px 8px;
+    }
+    
+    .quran-source {
+        font-size: 0.85rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .language-switcher {
+        top: 10px;
+        right: 10px;
+    }
+    
+    .lang-btn {
+        padding: 4px 8px;
+        font-size: 0.8rem;
+    }
+    
+    .container {
+        padding: 10px;
+        padding-top: 40px;
+    }
+    
+    .invitation-content {
+        gap: 25px;
+    }
+    
+    .card {
+        width: 95%;
+        padding: 20px 15px;
+    }
+    
+    .card:hover {
+        transform: translateY(-8px) scale(1.01);
+    }
+    
+    h1 {
+        font-size: 1.8rem;
+    }
+    
+    h2 {
+        font-size: 1.4rem;
+    }
+    
+    p {
+        font-size: 1rem;
+        margin-bottom: 15px;
+    }
+    
+    .invite-text {
+        font-size: 1.3rem;
+    }
+    
+    .date {
+        font-size: 1.5rem;
+    }
+    
+    .message-text {
+        font-size: 1rem;
+    }
+    
+    .days span {
+        width: 22px;
+        height: 22px;
+        line-height: 22px;
+        font-size: 0.9rem;
+    }
+    
+    .weekdays span {
+        font-size: 0.8rem;
+    }
+    
+    .month {
+        font-size: 1.3rem;
+        margin-bottom: 10px;
+    }
+    
+    .schedule-item {
+        flex-direction: column;
+        margin-bottom: 20px;
+    }
+    
+    .time {
+        margin-bottom: 5px;
+        font-size: 1.2rem;
+    }
+    
+    .event-title {
+        font-size: 1.1rem;
+    }
+    
+    .event-location {
+        font-size: 0.9rem;
+    }
+    
+    .dress-code-text, 
+    .dress-code-requirements, 
+    .location-text, 
+    .address, 
+    .wishes-text {
+        font-size: 1rem;
+    }
+    
+    .directions-button {
+        padding: 8px 15px;
+        font-size: 0.9rem;
+    }
+    
+    .map-container.active {
+        height: 200px;
+    }
+    
+    .location-image img {
+        max-height: 200px;
+    }
+    
+    .islamic-pattern {
+        height: 50px;
+    }
+    
+    .islamic-quote {
+        font-size: 0.9rem;
+        padding: 10px 5px;
+        margin-top: 20px;
+    }
+    
+    .quran-source {
+        font-size: 0.8rem;
+    }
+}
+
+/* Дополнительные стили для очень маленьких экранов */
+@media (max-width: 360px) {
+    h1 {
+        font-size: 1.6rem;
+    }
+    
+    h2 {
+        font-size: 1.3rem;
+        margin-bottom: 15px;
+    }
+    
+    .card {
+        padding: 15px 12px;
+    }
+    
+    .date {
+        font-size: 1.4rem;
+    }
+    
+    .days span {
+        width: 20px;
+        height: 20px;
+        line-height: 20px;
+        font-size: 0.8rem;
+    }
+    
+    .invitation-content {
+        gap: 20px;
+    }
+    
+    .directions-button {
+        width: 100%;
+        margin-top: 10px;
+    }
+    
+    .map-container.active {
+        height: 180px;
+    }
+} 
